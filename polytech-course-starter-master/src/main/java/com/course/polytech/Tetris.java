@@ -98,7 +98,7 @@ public class Tetris {
         for (int i = 0; i < piece.getShape().length; i++) {
             for (int y = 0; y < piece.getShape().length; y++) {
                 if (piece.getShape()[i][y] == 1) {
-                  int posxs = PosX+i, posys = PosY+y;
+                  int posxs = i, posys = y;
                   tetrisGrid[posxs][posys] = 1;
                 }
             }
