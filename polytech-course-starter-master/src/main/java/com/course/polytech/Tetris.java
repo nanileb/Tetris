@@ -127,7 +127,7 @@ public class Tetris {
         Game.clearBoard();
         for( int i = 0;i<50;i++) {
             Game.translation(Direction.SOUTH);
-            Game.fixpiece();
+            //Game.fixpiece();
         }
         /*Game.translation(Direction.EST);
         Game.translation(Direction.EST);
