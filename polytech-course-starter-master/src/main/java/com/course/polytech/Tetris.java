@@ -91,6 +91,7 @@ public class Tetris {
             pieceColumn=newY;
             //System.out.println(pieceColumn);
         }
+
     }
 
     //Fonction qui permet de savoir si la pièce est bien dans la grille.
@@ -114,13 +115,15 @@ public class Tetris {
 
     //Fonction qui permet d'ajouter une pièce sur la grille (lorsque la pièce ne peux plus descendre, pour l'encrer sur la grille)
     public boolean addpieceongrid(Piece piece, int PosX, int PosY){
+        //System.out.println(pieceLine);
+        //System.out.println(pieceColumn);
         for (int i = 0; i < piece.getShape().length; i++) {
             for (int y = 0; y < piece.getShape().length; y++) {
 
                 if (piece.getShape()[i][y] == 1) {
 
-                  int posxs = i, posys = y;
-                  System.out.println(y);
+                  int posxs = (i), posys = PosY+y;
+                    //System.out.println(y);
                     //System.out.println(PosX);
                   tetrisGrid[posxs][posys] = 1;
                 }
@@ -137,6 +140,8 @@ public class Tetris {
 
         //if (isinside(piece, pieceLine+1,pieceColumn+1)){
             //System.out.println(pieceLine);
+
+
             addpieceongrid(piece,pieceLine,pieceColumn);
 
         //}
@@ -154,6 +159,7 @@ public class Tetris {
         Game.clearBoard();
         Game.translation(Direction.EST);
         Game.translation(Direction.EST);
+        Game.translation(Direction.WEST);
         for( int i = 0;i<19;i++) {
             Game.translation(Direction.SOUTH);
             Game.fixpiece();
