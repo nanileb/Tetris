@@ -53,15 +53,15 @@ public class Piece {
 
     public static Piece create_T (Orientation orientation){
         final Integer[][] T_UP = {
+                {0,0,0},
                 {1,1,1},
-                {0,1,0},
-                {0,0,0}
+                {0,1,0}
         };
 
         final Integer[][] T_DOWN= {
-                {0,1,0},
-                {1,1,1},
-                {0,0,0}
+                {0,0,0},
+                {0,1,1},
+                {1,1,1}
 
         };
 
@@ -82,9 +82,9 @@ public class Piece {
     public static Piece create_Z (Orientation orientation){
 
         final  Integer[][] Z_UP = {
+                {0,0,0},
                 {1,1,0},
-                {0,1,1},
-                {0,0,0}
+                {0,1,1}
         };
 
         final  Integer[][] Z_DOWN= {
@@ -101,18 +101,18 @@ public class Piece {
         };
 
         final  Integer[][] Z_RIGHT = {
-                {0,1,0},
-                {1,1,0},
-                {1,0,0}
+                {0,0,1},
+                {0,1,1},
+                {0,1,0}
         };
         return new Piece(orientation,Z_UP,Z_DOWN,Z_LEFT,Z_RIGHT);
     }
 
     public static Piece create_J (Orientation orientation){
         final  Integer[][] J_UP = {
-                {0,0,0},
-                {1,1,1},
-                {0,1,0}
+                {0,0,1},
+                {0,0,1},
+                {0,1,1}
         };
 
         final  Integer[][] J_DOWN= {
@@ -129,17 +129,17 @@ public class Piece {
         };
 
         final  Integer[][] J_RIGHT = {
-                {0,0,0},
                 {1,1,1},
-                {0,0,1}
+                {0,0,1},
+                {0,0,0}
         };
         return new Piece(orientation,J_UP,J_DOWN,J_LEFT,J_RIGHT);
     }
     public static Piece create_S (Orientation orientation){
         final Integer[][] S_UP = {
+                {0,0,0},
                 {0,1,1},
-                {1,1,0},
-                {0,0,0}
+                {1,1,0}
         };
 
         final Integer[][] S_DOWN= {
@@ -156,9 +156,9 @@ public class Piece {
         };
 
         final Integer[][] S_RIGHT = {
-                {1,0,0},
-                {1,1,0},
-                {0,1,0}
+                {0,1,0},
+                {0,1,1},
+                {0,0,1}
         };
         return new Piece(orientation,S_UP,S_DOWN,S_LEFT,S_RIGHT);
     }
@@ -177,9 +177,9 @@ public class Piece {
         };
 
         final Integer[][] L_LEFT = {
+                {0,0,0},
                 {0,0,1},
-                {1,1,1},
-                {0,0,0}
+                {1,1,1}
         };
 
         final Integer[][] L_RIGHT = {

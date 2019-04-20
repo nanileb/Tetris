@@ -99,8 +99,10 @@ public class Tetris {
 
         for (int i = 0; i < piece.getShape().length; i++) {
             for (int y = 0; y < piece.getShape().length; y++) {
-                if (piece.getShape()[y][i] == 1) {
-                    if (PosX + i >= 10 || PosX + i < 1 || PosY + y >= 24 || PosY + y < 0) {
+                if (piece.getShape()[i][y] == 1) {
+                    if ((PosX + i) >= 10 || (PosX + i) < 0 || (PosY + y) >= 24 || (PosY + y) < 0) {
+                        //System.out.println(PosX+i);
+                        //System.out.println(PosY+y);
                         return false;
                     }
                 }
@@ -142,7 +144,7 @@ public class Tetris {
     public static void main(String[] args) throws Exception {
         Tetris Game = new Tetris();
         Game.printGrid();
-        Piece pieceTest = Piece.create_L(Orientation.UP);
+        Piece pieceTest = Piece.create_J(Orientation.UP);
         Game.addpiece(pieceTest);
 
 
@@ -157,9 +159,13 @@ public class Tetris {
         for( int i = 0;i<25;i++) {
             Game.translation(Direction.SOUTH);
             //System.out.println(Game.pieceLine);
-            Game.translation(Direction.WEST);
+            Game.translation(Direction.EST);
         }
-        pieceTest.rotate(Rotation.CLOCK);
+
+        //pieceTest.rotate(Rotation.CLOCK);
+        //pieceTest.rotate(Rotation.CLOCK);
+        //pieceTest.rotate(Rotation.CLOCK);
+        //pieceTest.rotate(Rotation.CLOCK);
         //System.out.println(Game.pieceLine);
         Game.fixpiece();
 
