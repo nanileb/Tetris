@@ -84,7 +84,8 @@ public class Tetris {
             newY--;
         }
 
-        if(isinside(piece,newY,newX)){
+        if(isinside(piece,newX,newY)){
+
             pieceLine=newX;
             //System.out.println(pieceLine);
 
@@ -100,9 +101,9 @@ public class Tetris {
         for (int i = 0; i < piece.getShape().length; i++) {
             for (int y = 0; y < piece.getShape().length; y++) {
                 if (piece.getShape()[i][y] == 1) {
-                    if ((PosX + i) >= 10 || (PosX + i) < 0 || (PosY + y) >= 24 || (PosY + y) < 0) {
+                    if ((PosX + i) >= 24 || (PosX + i) < 0 || (PosY + y) >= 10 || (PosY + y) < 0) {
                         //System.out.println(PosX+i);
-                        //System.out.println(PosY+y);
+                        System.out.println(PosY+y);
                         return false;
                     }
                 }
@@ -144,22 +145,21 @@ public class Tetris {
     public static void main(String[] args) throws Exception {
         Tetris Game = new Tetris();
         Game.printGrid();
-        Piece pieceTest = Piece.create_J(Orientation.UP);
+        Piece pieceTest = Piece.create_I(Orientation.UP);
         Game.addpiece(pieceTest);
 
 
         Game.clearBoard();
-        Game.translation(Direction.EST);
-        Game.translation(Direction.EST);
+        //Game.translation(Direction.EST);
         //System.out.println(Game.pieceColumn);
-        Game.translation(Direction.EST);
+        //Game.translation(Direction.EST);
         //System.out.println(Game.pieceColumn);
-        Game.translation(Direction.WEST);
+        //Game.translation(Direction.WEST);
         //System.out.println(Game.pieceColumn);
-        for( int i = 0;i<25;i++) {
+        for( int i = 0;i<40;i++) {
             Game.translation(Direction.SOUTH);
             //System.out.println(Game.pieceLine);
-            Game.translation(Direction.EST);
+            Game.translation(Direction.WEST);
         }
 
         //pieceTest.rotate(Rotation.CLOCK);

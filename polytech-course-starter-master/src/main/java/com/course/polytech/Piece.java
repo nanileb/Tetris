@@ -191,17 +191,17 @@ public class Piece {
     }
     public static Piece create_I (Orientation orientation){
         final Integer[][] I_UP = {
-                {0,1,0,0},
-                {0,1,0,0},
-                {0,1,0,0},
-                {0,1,0,0}
+                {1,0,0,0},
+                {1,0,0,0},
+                {1,0,0,0},
+                {1,0,0,0}
         };
 
         final Integer[][] I_DOWN= {
-                {0,1,0,0},
-                {0,1,0,0},
-                {0,1,0,0},
-                {0,1,0,0}
+                {0,0,0,1},
+                {0,0,0,1},
+                {0,0,0,1},
+                {0,0,0,1}
         };
 
         final Integer[][] I_LEFT = {
