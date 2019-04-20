@@ -70,39 +70,47 @@ public class Tetris {
     }
     //Fonction qui permet d'effectuer une translation de notre pièce
     public void translation(Direction direction){
-        int newX = pieceColumn,newY = pieceLine;
+        int newY = pieceColumn,newX = pieceLine;
+
 
         if(direction == Direction.SOUTH) {
-            newY++;
-
+            newX++;
 
         }else if(direction == Direction.EST){
-            newX++;
+            newY++;
 
         }
         else if(direction == Direction.WEST){
-            newX--;
+            newY--;
         }
 
-        if(isinside(piece,newX,newY)){
-            pieceLine=newY;
-            pieceColumn=newX;
+        if(isinside(piece,newY,newY)){
+            pieceLine=newX;
+            //System.out.println(pieceLine);
+
+            pieceColumn=newY;
+            //System.out.println(pieceColumn);
         }
     }
 
     //Fonction qui permet de savoir si la pièce est bien dans la grille.
     public boolean isinside(Piece piece, int PosX, int PosY){
+
         for (int i = 0; i < piece.getShape().length; i++) {
             for (int y = 0; y < piece.getShape().length; y++) {
                 if (piece.getShape()[y][i] == 1) {
                     if (PosX + i >= 10 || PosX + i < 0 || PosY + y >= 24 || PosY + y < 0) {
+                        //System.out.println(pieceLine);
                         return false;
                     }
                 }
             }
         }
+
         return true;
+
     }
+
 
     //Fonction qui permet d'ajouter une pièce sur la grille (lorsque la pièce ne peux plus descendre, pour l'encrer sur la grille)
     public boolean addpieceongrid(Piece piece, int PosX, int PosY){
@@ -111,10 +119,9 @@ public class Tetris {
 
                 if (piece.getShape()[i][y] == 1) {
 
-
-
-                  int posxs = 21+i, posys = y;
-                    System.out.println(PosX);
+                  int posxs = i, posys = y;
+                  System.out.println(y);
+                    //System.out.println(PosX);
                   tetrisGrid[posxs][posys] = 1;
                 }
             }
@@ -122,12 +129,17 @@ public class Tetris {
         return true;
     }
 
+
+
     //Fonction qui permet de fixer une pièce sur la grille.
     public void fixpiece(){
 
-        if (isinside(piece, pieceLine+1,pieceColumn+1)){
+
+        //if (isinside(piece, pieceLine+1,pieceColumn+1)){
+            //System.out.println(pieceLine);
             addpieceongrid(piece,pieceLine,pieceColumn);
-        }
+
+        //}
     }
 
 
@@ -137,12 +149,12 @@ public class Tetris {
         Piece pieceTest = Piece.create_L(Orientation.UP);
         Game.addpiece(pieceTest);
 
-        Game.clearBoard();
-        Game.drawPieceOnBoard();
-        Game.printGrid();
+
 
         Game.clearBoard();
-        for( int i = 0;i<50;i++) {
+        Game.translation(Direction.EST);
+        Game.translation(Direction.EST);
+        for( int i = 0;i<19;i++) {
             Game.translation(Direction.SOUTH);
             Game.fixpiece();
         }
