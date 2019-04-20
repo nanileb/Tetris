@@ -222,31 +222,23 @@ public class Piece {
 
     public static Piece create_O (Orientation orientation){
         final Integer[][] O_UP = {
-                {0,0,0,0},
-                {0,1,1,0},
-                {0,1,1,0},
-                {0,0,0,0}
+                {1,1},
+                {1,1}
         };
 
         final Integer[][] O_DOWN= {
-                {0,0,0,0},
-                {0,1,1,0},
-                {0,1,1,0},
-                {0,0,0,0}
+                {1,1},
+                {1,1}
         };
 
         final Integer[][] O_LEFT = {
-                {0,0,0,0},
-                {0,1,1,0},
-                {0,1,1,0},
-                {0,0,0,0}
+                {1,1},
+                {1,1}
         };
 
         final Integer[][] O_RIGHT = {
-                {0,0,0,0},
-                {0,1,1,0},
-                {0,1,1,0},
-                {0,0,0,0}
+                {1,1},
+                {1,1}
         };
         return new Piece(orientation,O_UP,O_DOWN,O_LEFT,O_RIGHT);
     }

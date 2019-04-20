@@ -71,7 +71,9 @@ public class Tetris {
     //Fonction qui permet d'effectuer une translation de notre pièce
     public void translation(Direction direction){
         int newY = pieceColumn,newX = pieceLine;
-
+        int oldX=0,oldY=0;
+        oldX=newX;
+        oldY=newY;
 
         if(direction == Direction.SOUTH) {
             newX++;
@@ -84,16 +86,36 @@ public class Tetris {
             newY--;
         }
 
-        if(isinside(piece,newX,newY)){
+        if(isinside(piece,newX,newY)) {
+            if (ispossibletoplace(piece, newX, newY)) {
+                pieceLine = newX;
 
-            pieceLine=newX;
-            //System.out.println(pieceLine);
+                pieceColumn = newY;
+            }/*else if(ispossibletoplace(piece,newX-1,newY)){
 
-            pieceColumn=newY;
-            //System.out.println(pieceColumn);
+                pieceLine = newX-1;
+
+                pieceColumn = newY;
+            }*/ else if (oldX - newX != 0) {
+                if (ispossibletoplace(piece, oldX, newY)) {
+                    pieceLine = oldX;
+                    pieceColumn = newY;
+                }
+            } else if (oldY - newY != 0) {
+                if (ispossibletoplace(piece, newX, oldY)) {
+                    pieceLine = newX;
+                    pieceColumn = oldY;
+                } }/*else if (ispossibletoplace(piece, newX, newY - 1)) {
+                    pieceLine = newX;
+                    pieceColumn = newY - 1;
+                } */else {
+                    newX = oldX;
+                    newY = oldY;
+                }
+            }
         }
 
-    }
+
 
     //Fonction qui permet de savoir si la pièce est bien dans la grille.
     public boolean isinside(Piece piece, int PosX, int PosY){
@@ -102,8 +124,6 @@ public class Tetris {
             for (int y = 0; y < piece.getShape().length; y++) {
                 if (piece.getShape()[i][y] == 1) {
                     if ((PosX + i) >= 24 || (PosX + i) < 0 || (PosY + y) >= 10 || (PosY + y) < 0) {
-                        //System.out.println(PosX+i);
-                        System.out.println(PosY+y);
                         return false;
                     }
                 }
@@ -121,8 +141,7 @@ public class Tetris {
                 if (piece.getShape()[i][y] == 1) {
 
                   int posxs = (PosX+i), posys = (PosY+y);
-                    //System.out.println(y);
-                    //System.out.println(PosX);
+
                   tetrisGrid[posxs][posys] = 1;
                 }
             }
@@ -130,6 +149,21 @@ public class Tetris {
         return true;
     }
 
+    public boolean ispossibletoplace(Piece piece, int X, int Y){
+        for (int i = 0; i < piece.getShape().length; i++) {
+            for (int j = 0; j < piece.getShape().length; j++) {
+                if (piece.getShape()[i][j] == 1) {
+                    System.out.println(tetrisGrid[i+X][j+Y]);
+                    if (tetrisGrid[i+X][j+Y]!=0) {
+
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
 
 
     //Fonction qui permet de fixer une pièce sur la grille.
@@ -142,37 +176,54 @@ public class Tetris {
     }
 
 
+
     public static void main(String[] args) throws Exception {
         Tetris Game = new Tetris();
         Game.printGrid();
+        Game.clearBoard();
         Piece pieceTest = Piece.create_I(Orientation.UP);
         Game.addpiece(pieceTest);
 
 
-        Game.clearBoard();
-        //Game.translation(Direction.EST);
-        //System.out.println(Game.pieceColumn);
-        //Game.translation(Direction.EST);
-        //System.out.println(Game.pieceColumn);
-        //Game.translation(Direction.WEST);
-        //System.out.println(Game.pieceColumn);
+
+
+
+
         for( int i = 0;i<40;i++) {
             Game.translation(Direction.SOUTH);
-            //System.out.println(Game.pieceLine);
+
             Game.translation(Direction.WEST);
         }
-
-        //pieceTest.rotate(Rotation.CLOCK);
-        //pieceTest.rotate(Rotation.CLOCK);
-        //pieceTest.rotate(Rotation.CLOCK);
-        //pieceTest.rotate(Rotation.CLOCK);
-        //System.out.println(Game.pieceLine);
+        Game.drawPieceOnBoard();
         Game.fixpiece();
 
+
+
+        Piece pieceTest2 = Piece.create_O(Orientation.UP);
+        Game.addpiece(pieceTest2);
+        for( int i = 0;i<19;i++) {
+            Game.translation(Direction.SOUTH);
+        }
+        Game.translation(Direction.WEST);
+        Game.translation(Direction.WEST);
+        Game.translation(Direction.WEST);
+        Game.translation(Direction.WEST);
+        Game.fixpiece();
+
+        Piece pieceTest3 = Piece.create_Z(Orientation.UP);
+        Game.addpiece(pieceTest3);
+        for( int i = 0;i<18;i++) {
+            Game.translation(Direction.SOUTH);
+        }
+        Game.translation(Direction.WEST);
+        Game.translation(Direction.WEST);
+        Game.translation(Direction.WEST);
+        Game.translation(Direction.WEST);
 
         Game.drawPieceOnBoard();
 
         Game.printGrid();
+
     }
 
 }
