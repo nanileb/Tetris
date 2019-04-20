@@ -100,29 +100,24 @@ public class Tetris {
         for (int i = 0; i < piece.getShape().length; i++) {
             for (int y = 0; y < piece.getShape().length; y++) {
                 if (piece.getShape()[y][i] == 1) {
-                    if (PosX + i >= 10 || PosX + i < 0 || PosY + y >= 24 || PosY + y < 0) {
-                        //System.out.println(pieceLine);
+                    if (PosX + i >= 10 || PosX + i < 0 || PosY + y >= 22 || PosY + y < 0) {
                         return false;
                     }
                 }
             }
         }
-
         return true;
-
     }
 
 
     //Fonction qui permet d'ajouter une pièce sur la grille (lorsque la pièce ne peux plus descendre, pour l'encrer sur la grille)
     public boolean addpieceongrid(Piece piece, int PosX, int PosY){
-        //System.out.println(pieceLine);
-        //System.out.println(pieceColumn);
         for (int i = 0; i < piece.getShape().length; i++) {
             for (int y = 0; y < piece.getShape().length; y++) {
 
                 if (piece.getShape()[i][y] == 1) {
 
-                  int posxs = (i), posys = PosY+y;
+                  int posxs = (PosX+i), posys = (PosY+y);
                     //System.out.println(y);
                     //System.out.println(PosX);
                   tetrisGrid[posxs][posys] = 1;
@@ -138,13 +133,9 @@ public class Tetris {
     public void fixpiece(){
 
 
-        //if (isinside(piece, pieceLine+1,pieceColumn+1)){
-            //System.out.println(pieceLine);
-
-
+        if (isinside(piece, pieceLine+1,pieceColumn+1)){
             addpieceongrid(piece,pieceLine,pieceColumn);
-
-        //}
+        }
     }
 
 
@@ -155,15 +146,21 @@ public class Tetris {
         Game.addpiece(pieceTest);
 
 
-
         Game.clearBoard();
         Game.translation(Direction.EST);
         Game.translation(Direction.EST);
+        //System.out.println(Game.pieceColumn);
+        Game.translation(Direction.EST);
+        //System.out.println(Game.pieceColumn);
         Game.translation(Direction.WEST);
-        for( int i = 0;i<19;i++) {
+        //System.out.println(Game.pieceColumn);
+        for( int i = 0;i<21;i++) {
             Game.translation(Direction.SOUTH);
-            Game.fixpiece();
+            //System.out.println(Game.pieceLine);
+
         }
+        //System.out.println(Game.pieceLine);
+        Game.fixpiece();
         /*Game.translation(Direction.EST);
         Game.translation(Direction.EST);
         Game.translation(Direction.EST);
