@@ -84,7 +84,7 @@ public class Tetris {
             newY--;
         }
 
-        if(isinside(piece,newY,newY)){
+        if(isinside(piece,newY,newX)){
             pieceLine=newX;
             //System.out.println(pieceLine);
 
@@ -100,7 +100,7 @@ public class Tetris {
         for (int i = 0; i < piece.getShape().length; i++) {
             for (int y = 0; y < piece.getShape().length; y++) {
                 if (piece.getShape()[y][i] == 1) {
-                    if (PosX + i >= 10 || PosX + i < 0 || PosY + y >= 22 || PosY + y < 0) {
+                    if (PosX + i >= 10 || PosX + i < 1 || PosY + y >= 24 || PosY + y < 0) {
                         return false;
                     }
                 }
@@ -154,26 +154,16 @@ public class Tetris {
         //System.out.println(Game.pieceColumn);
         Game.translation(Direction.WEST);
         //System.out.println(Game.pieceColumn);
-        for( int i = 0;i<21;i++) {
+        for( int i = 0;i<25;i++) {
             Game.translation(Direction.SOUTH);
             //System.out.println(Game.pieceLine);
-
+            Game.translation(Direction.WEST);
         }
+        pieceTest.rotate(Rotation.CLOCK);
         //System.out.println(Game.pieceLine);
         Game.fixpiece();
-        /*Game.translation(Direction.EST);
-        Game.translation(Direction.EST);
-        Game.translation(Direction.EST);
-        Game.translation(Direction.EST);
-        Game.translation(Direction.EST);
-        Game.translation(Direction.EST);
-        Game.translation(Direction.EST);
-        Game.translation(Direction.EST);
-        pieceTest.rotate(Rotation.TRIGO);
-        pieceTest.rotate(Rotation.TRIGO);
-        pieceTest.rotate(Rotation.TRIGO);
-        pieceTest.rotate(Rotation.TRIGO);
-        */
+
+
         Game.drawPieceOnBoard();
 
         Game.printGrid();
