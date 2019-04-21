@@ -73,21 +73,16 @@ public class Tetris {
     public void translation(Direction direction) {
         int newY = pieceColumn, newX = pieceLine;
 
-        //int TypeDeplacement = 0;
+
 
 
         if (direction == Direction.SOUTH) {
             newX++;
-            //TypeDeplacement = 1;
-
         } else if (direction == Direction.EST) {
             newY++;
-            //TypeDeplacement = 2;
 
         } else if (direction == Direction.WEST) {
             newY--;
-            //TypeDeplacement = 3;
-            System.out.println(newY);
         }
 
         if (isinside(piece, newX, newY)) {
@@ -95,14 +90,7 @@ public class Tetris {
                 pieceLine = newX;
                 pieceColumn = newY;
             }
-        } /*else if (TypeDeplacement == 1) {
-            newX--;
-        } else if (TypeDeplacement == 2) {
-            newY--;
-        } else if (TypeDeplacement == 3) {
-            newY++;
-    }*/
-
+        }
 }
 
 
@@ -143,7 +131,6 @@ public class Tetris {
         for (int i = 0; i < piece.getShape().length; i++) {
             for (int j = 0; j < piece.getShape().length; j++) {
                 if (piece.getShape()[i][j] == 1) {
-                    //System.out.println(tetrisGrid[i+X][j+Y]);
                     if (tetrisGrid[i+X][j+Y]!=0) {
 
                         return false;
@@ -157,15 +144,35 @@ public class Tetris {
 
 
     //Fonction qui permet de fixer une pièce sur la grille.
-    public void fixpiece(){
-
-
+    public  void fixpiece(){
         if (isinside(piece, pieceLine+1,pieceColumn+1)){
+            System.out.println("Test");
             addpieceongrid(piece,pieceLine,pieceColumn);
+
+            newrandompiece();
         }
+
     }
 
 
+
+    public static Piece[] pieceTest_R = new Piece[50];
+    public static int IndPiece = 1;
+    public void newrandompiece(){
+        System.out.println(2);
+
+
+            System.out.println(1);
+            pieceTest_R[IndPiece] = Piece.random_piece();
+
+            addpiece(pieceTest_R[IndPiece]);
+            IndPiece++;
+
+
+    }
+
+
+    
 
     public static void main(String[] args) throws Exception {
         Tetris Game = new Tetris();
@@ -186,12 +193,34 @@ public class Tetris {
         }
         Game.drawPieceOnBoard();
         Game.fixpiece();
+        Game.newrandompiece();
+        Game.translation(Direction.SOUTH);
+        Game.translation(Direction.SOUTH);
+        Game.translation(Direction.SOUTH);
+        Game.translation(Direction.SOUTH);
+        Game.translation(Direction.SOUTH);
+        Game.translation(Direction.SOUTH);
+        Game.translation(Direction.SOUTH);
+        Game.drawPieceOnBoard();
+        Game.fixpiece();
+        Game.translation(Direction.SOUTH);
+        Game.translation(Direction.SOUTH);
+        Game.translation(Direction.SOUTH);
+        Game.translation(Direction.SOUTH);
+        Game.translation(Direction.SOUTH);
+        Game.translation(Direction.SOUTH);
+        Game.translation(Direction.SOUTH);
+        Game.translation(Direction.EST);
+        Game.translation(Direction.EST);
+        Game.drawPieceOnBoard();
+        Game.fixpiece();
+        Game.drawPieceOnBoard();
+        Game.printGrid();
 
 
-
+        /*
         Piece pieceTest2 = Piece.create_O(Orientation.UP);
         Game.addpiece(pieceTest2);
-        System.out.println("Piecenumero2");
         for( int i = 0;i<30;i++) {
             Game.translation(Direction.SOUTH);
             Game.translation(Direction.WEST);
@@ -237,8 +266,35 @@ public class Tetris {
         }
 
         Game.drawPieceOnBoard();
+        Game.fixpiece();
+        /*Game.fixpiece();
+        Piece pieceTest8 = Piece.random_piece();
+        Game.addpiece(pieceTest8);
+        for( int i = 0;i<23;i++) {
+            Game.translation(Direction.SOUTH);
+            Game.translation(Direction.EST);
+        }
 
-        Game.printGrid();
+        Game.drawPieceOnBoard();
+
+        Game.fixpiece();
+
+       */
+
+        /* Fonctionne Aléatoire mais pas dans une fonction
+        Piece[] pieceTest_R = new Piece[50];
+        int IndPiece = 1;
+        pieceTest_R[IndPiece] = Piece.random_piece();
+
+        Game.addpiece(pieceTest_R[IndPiece]);
+        IndPiece++;
+
+        Game.drawPieceOnBoard();
+         */
+
+        //Game.newrandompiece();
+
+
 
 
     }

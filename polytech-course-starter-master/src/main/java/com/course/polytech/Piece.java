@@ -1,10 +1,11 @@
 package com.course.polytech;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Piece {
+
+
 
 
     final  HashMap<Orientation , Integer [][]> formepiece = new HashMap<>();
@@ -49,6 +50,28 @@ public class Piece {
                 orientation = sequence_orientation.get(orientation_idx-1);
             }
         }
+    }
+
+    //fonction qui permet de créer une pièce random
+    public static Piece random_piece(){
+        int random= (int) (1+(Math.random()*(6)));
+        if(random==1){
+            return create_T(Orientation.UP);
+        }
+        else if(random==2){
+            return create_O(Orientation.UP);
+        }else if(random==3){
+            return create_I(Orientation.UP);
+        }else if(random==4){
+            return create_J(Orientation.UP);
+        }else if(random==5){
+            return create_Z(Orientation.UP);
+        }else if(random==6){
+            return create_L(Orientation.UP);
+        }else if(random==7){
+            return create_S(Orientation.UP);
+        }
+        return null;
     }
 
     public static Piece create_T (Orientation orientation){
