@@ -60,25 +60,22 @@ public class Tetris {
 
     public boolean[] isLineComplete_sodelete(){
         boolean checkLine[] = new boolean[24] ;
-
         for (int line = 0; line<24; line++){
             boolean filled = true;
             for(int column=0; column<10; column++){
-                System.out.println(tetrisGrid[line][column]);
-                if(tetrisGrid[line][column] != 0){
-                    for(int linedeux=0;linedeux<line;line++){
-                        for(column=0; column<10; column++) {
+                if(tetrisGrid[line][column] == 1){
+                    /*
+                    for(int linedeux=1;linedeux<line;line++){
+                        for(column=1; column<10; column++) {
                             tetrisGrid[linedeux][column] = tetrisGrid[linedeux - 1][column];
                         }
                     }
-                    filled=true;
+                    filled=true;*/
                 }else{
                     filled=false;
                 }
             }
             checkLine[line]=filled;
-
-
     }
         return checkLine;
     }
@@ -99,9 +96,6 @@ public class Tetris {
     //Fonction qui permet d'effectuer une translation de notre pièce
     public void translation(Direction direction) {
         int newY = pieceColumn, newX = pieceLine;
-
-
-
 
         if (direction == Direction.SOUTH) {
             newX++;
@@ -169,7 +163,6 @@ public class Tetris {
         return true;
     }
 
-
     //Fonction qui permet de fixer une pièce sur la grille.
     public  void fixpiece(){
         if (isinside(piece, pieceLine+1,pieceColumn+1)){
@@ -188,7 +181,7 @@ public class Tetris {
     public static Piece[] pieceTest_R = new Piece[50];
     public static int IndPiece = 1;
     public void newrandompiece(){
-        pieceTest_R[IndPiece] = Piece.random_piece();
+        pieceTest_R[IndPiece] = Piece.create_L(Orientation.LEFT);
         addpiece(pieceTest_R[IndPiece]);
         IndPiece++;
     }
@@ -202,7 +195,8 @@ public class Tetris {
         Game.clearBoard();
 
         // First Piece
-        Piece FirstPiece = Piece.random_piece();
+        Piece FirstPiece = Piece.create_I(Orientation.UP);
+        FirstPiece.rotate(Rotation.TRIGO);
         Game.addpiece(FirstPiece);
         for( int i = 0;i<30;i++) {
             Game.translation(Direction.SOUTH);
@@ -214,6 +208,8 @@ public class Tetris {
         for( int i = 0;i<25;i++) {
             Game.translation(Direction.SOUTH);
         }
+        Game.translation(Direction.EST);
+        Game.translation(Direction.SOUTH);
         Game.drawPieceOnBoard();
 
         //fixation + création de troisième pièce
@@ -227,8 +223,9 @@ public class Tetris {
         Game.fixpiece();
         for( int i = 0;i<30;i++) {
             Game.translation(Direction.SOUTH);
-            Game.translation(Direction.WEST);
         }
+        Game.translation(Direction.EST);
+        Game.translation(Direction.EST);
         Game.drawPieceOnBoard();
         //fixation + création de cinquième pièce
         Game.fixpiece();
