@@ -63,14 +63,14 @@ public class Tetris {
         for (int line = 0; line<24; line++){
             boolean filled = true;
             for(int column=0; column<10; column++){
-                if(tetrisGrid[line][column] == 1){
-                    /*
-                    for(int linedeux=1;linedeux<line;line++){
-                        for(column=1; column<10; column++) {
-                            tetrisGrid[linedeux][column] = tetrisGrid[linedeux - 1][column];
+                if(tetrisGrid[line][column] == 0){
+                    for(int x=0;x<line;x++){
+                        for(column=0;column<10;column++){
+                            //tetrisGrid[x][column] = tetrisGrid[x - 1][column];
+                            tetrisGrid[1][column]=0;
                         }
                     }
-                    filled=true;*/
+                    filled=true;
                 }else{
                     filled=false;
                 }
