@@ -8,7 +8,6 @@ public class Tetris {
     public static int FULL = 1;
     public static int EMPTY = 0;
     public static int CURRENTPIECE = 2;
-    public static int test = 0;
     public int[][] tetrisGrid = new int[LINE_SIZE][COLUMN_SIZE];
     int pieceColumn, pieceLine;
     Piece piece;
@@ -74,20 +73,20 @@ public class Tetris {
     public void translation(Direction direction) {
         int newY = pieceColumn, newX = pieceLine;
 
-        int TypeDeplacement = 0;
+        //int TypeDeplacement = 0;
 
 
         if (direction == Direction.SOUTH) {
             newX++;
-            TypeDeplacement = 1;
+            //TypeDeplacement = 1;
 
         } else if (direction == Direction.EST) {
             newY++;
-            TypeDeplacement = 2;
+            //TypeDeplacement = 2;
 
         } else if (direction == Direction.WEST) {
             newY--;
-            TypeDeplacement = 3;
+            //TypeDeplacement = 3;
             System.out.println(newY);
         }
 
@@ -95,39 +94,14 @@ public class Tetris {
             if (ispossibletoplace(piece, newX, newY)) {
                 pieceLine = newX;
                 pieceColumn = newY;
-                //System.out.println(true);
             }
-        } else if (TypeDeplacement == 1) {
-            System.out.println(false);
+        } /*else if (TypeDeplacement == 1) {
             newX--;
         } else if (TypeDeplacement == 2) {
             newY--;
         } else if (TypeDeplacement == 3) {
             newY++;
-
-
-            /*else if(ispossibletoplace(piece,newX-1,newY)){
-
-                pieceLine = newX-1;
-
-                pieceColumn = newY;
-            }*/ /* else if (oldX - newX != 0) {
-                if (ispossibletoplace(piece, oldX, newY)) {
-                    pieceLine = oldX;
-                    pieceColumn = newY;
-                }
-            } else if (oldY - newY != 0) {
-                if (ispossibletoplace(piece, newX, oldY)) {
-                    pieceLine = newX;
-                    pieceColumn = oldY;
-                } }/*else if (ispossibletoplace(piece, newX, newY - 1)) {
-                    pieceLine = newX;
-                    pieceColumn = newY - 1;
-                } else {
-                    newX = oldX;
-                    newY = oldY;
-                }*/
-    }
+    }*/
 
 }
 
@@ -234,8 +208,38 @@ public class Tetris {
         }
 
         Game.drawPieceOnBoard();
+        Game.fixpiece();
+
+        Piece pieceTest4 = Piece.create_J(Orientation.UP);
+        Game.addpiece(pieceTest4);
+        for( int i = 0;i<23;i++) {
+            Game.translation(Direction.SOUTH);
+            Game.translation(Direction.WEST);
+        }
+        Game.fixpiece();
+        Game.drawPieceOnBoard();
+
+        Piece pieceTest5 = Piece.create_O(Orientation.UP);
+        Game.addpiece(pieceTest5);
+        for( int i = 0;i<23;i++) {
+            Game.translation(Direction.SOUTH);
+            Game.translation(Direction.EST);
+        }
+
+        Game.drawPieceOnBoard();
+        Game.fixpiece();
+
+        Piece pieceTest6 = Piece.create_O(Orientation.UP);
+        Game.addpiece(pieceTest6);
+        for( int i = 0;i<23;i++) {
+            Game.translation(Direction.SOUTH);
+            Game.translation(Direction.EST);
+        }
+
+        Game.drawPieceOnBoard();
 
         Game.printGrid();
+
 
     }
 
