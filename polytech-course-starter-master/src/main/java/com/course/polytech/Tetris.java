@@ -8,8 +8,9 @@ public class Tetris {
     public static int FULL = 1;
     public static int EMPTY = 0;
     public static int CURRENTPIECE = 2;
+    public static int test = 0;
     public int[][] tetrisGrid = new int[LINE_SIZE][COLUMN_SIZE];
-    int pieceColumn , pieceLine;
+    int pieceColumn, pieceLine;
     Piece piece;
 
     public Tetris() {
@@ -29,7 +30,7 @@ public class Tetris {
     public void printGrid() {
         for (int line = 0; line < LINE_SIZE; line++) {
             for (int column = 0; column < COLUMN_SIZE; column++) {
-                if(tetrisGrid[line][column] == EMPTY) {
+                if (tetrisGrid[line][column] == EMPTY) {
                     System.out.print(" * ");
                 } else {
                     System.out.print(" O ");
@@ -41,9 +42,9 @@ public class Tetris {
     }
 
     //Fonction qui permet de créer une pièce et donc de la positionner au centre sur la grille.
-    public void addpiece(Piece piece){
-        this.pieceColumn= COLUMN_SIZE/2 - ((piece.getShape().length + 1) / 2);
-        this.pieceLine=0;
+    public void addpiece(Piece piece) {
+        this.pieceColumn = COLUMN_SIZE / 2 - ((piece.getShape().length + 1) / 2);
+        this.pieceLine = 0;
         this.piece = piece;
     }
 
@@ -51,7 +52,7 @@ public class Tetris {
     public void clearBoard() {
         for (int line = 0; line < LINE_SIZE; line++) {
             for (int column = 0; column < COLUMN_SIZE; column++) {
-                if(tetrisGrid[line][column] == CURRENTPIECE) {
+                if (tetrisGrid[line][column] == CURRENTPIECE) {
                     tetrisGrid[line][column] = EMPTY;
                 }
             }
@@ -62,41 +63,55 @@ public class Tetris {
     public void drawPieceOnBoard() {
         for (int line = 0; line < piece.getShape().length; line++) {
             for (int column = 0; column < piece.getShape()[0].length; column++) {
-                if(piece.getShape()[line][column] == 1) {
+                if (piece.getShape()[line][column] == 1) {
                     tetrisGrid[this.pieceLine + line][this.pieceColumn + column] = CURRENTPIECE;
                 }
             }
         }
     }
+
     //Fonction qui permet d'effectuer une translation de notre pièce
-    public void translation(Direction direction){
-        int newY = pieceColumn,newX = pieceLine;
-        int oldX=0,oldY=0;
-        oldX=newX;
-        oldY=newY;
+    public void translation(Direction direction) {
+        int newY = pieceColumn, newX = pieceLine;
 
-        if(direction == Direction.SOUTH) {
+        int TypeDeplacement = 0;
+
+
+        if (direction == Direction.SOUTH) {
             newX++;
+            TypeDeplacement = 1;
 
-        }else if(direction == Direction.EST){
+        } else if (direction == Direction.EST) {
             newY++;
+            TypeDeplacement = 2;
 
-        }
-        else if(direction == Direction.WEST){
+        } else if (direction == Direction.WEST) {
             newY--;
+            TypeDeplacement = 3;
+            System.out.println(newY);
         }
 
-        if(isinside(piece,newX,newY)) {
+        if (isinside(piece, newX, newY)) {
             if (ispossibletoplace(piece, newX, newY)) {
                 pieceLine = newX;
-
                 pieceColumn = newY;
-            }/*else if(ispossibletoplace(piece,newX-1,newY)){
+                //System.out.println(true);
+            }
+        } else if (TypeDeplacement == 1) {
+            System.out.println(false);
+            newX--;
+        } else if (TypeDeplacement == 2) {
+            newY--;
+        } else if (TypeDeplacement == 3) {
+            newY++;
+
+
+            /*else if(ispossibletoplace(piece,newX-1,newY)){
 
                 pieceLine = newX-1;
 
                 pieceColumn = newY;
-            }*/ else if (oldX - newX != 0) {
+            }*/ /* else if (oldX - newX != 0) {
                 if (ispossibletoplace(piece, oldX, newY)) {
                     pieceLine = oldX;
                     pieceColumn = newY;
@@ -108,12 +123,13 @@ public class Tetris {
                 } }/*else if (ispossibletoplace(piece, newX, newY - 1)) {
                     pieceLine = newX;
                     pieceColumn = newY - 1;
-                } */else {
+                } else {
                     newX = oldX;
                     newY = oldY;
-                }
-            }
-        }
+                }*/
+    }
+
+}
 
 
 
@@ -122,7 +138,7 @@ public class Tetris {
 
         for (int i = 0; i < piece.getShape().length; i++) {
             for (int y = 0; y < piece.getShape().length; y++) {
-                if (piece.getShape()[i][y] == 1) {
+                if (piece.getShape()[i][y] != 0) {
                     if ((PosX + i) >= 24 || (PosX + i) < 0 || (PosY + y) >= 10 || (PosY + y) < 0) {
                         return false;
                     }
@@ -153,7 +169,7 @@ public class Tetris {
         for (int i = 0; i < piece.getShape().length; i++) {
             for (int j = 0; j < piece.getShape().length; j++) {
                 if (piece.getShape()[i][j] == 1) {
-                    System.out.println(tetrisGrid[i+X][j+Y]);
+                    //System.out.println(tetrisGrid[i+X][j+Y]);
                     if (tetrisGrid[i+X][j+Y]!=0) {
 
                         return false;
@@ -189,7 +205,7 @@ public class Tetris {
 
 
 
-        for( int i = 0;i<40;i++) {
+        for( int i = 0;i<20;i++) {
             Game.translation(Direction.SOUTH);
 
             Game.translation(Direction.WEST);
@@ -201,24 +217,21 @@ public class Tetris {
 
         Piece pieceTest2 = Piece.create_O(Orientation.UP);
         Game.addpiece(pieceTest2);
-        for( int i = 0;i<19;i++) {
+        System.out.println("Piecenumero2");
+        for( int i = 0;i<30;i++) {
             Game.translation(Direction.SOUTH);
+            Game.translation(Direction.WEST);
         }
-        Game.translation(Direction.WEST);
-        Game.translation(Direction.WEST);
-        Game.translation(Direction.WEST);
-        Game.translation(Direction.WEST);
+        Game.drawPieceOnBoard();
+
         Game.fixpiece();
 
         Piece pieceTest3 = Piece.create_Z(Orientation.UP);
         Game.addpiece(pieceTest3);
-        for( int i = 0;i<18;i++) {
+        for( int i = 0;i<23;i++) {
             Game.translation(Direction.SOUTH);
+            Game.translation(Direction.WEST);
         }
-        Game.translation(Direction.WEST);
-        Game.translation(Direction.WEST);
-        Game.translation(Direction.WEST);
-        Game.translation(Direction.WEST);
 
         Game.drawPieceOnBoard();
 
