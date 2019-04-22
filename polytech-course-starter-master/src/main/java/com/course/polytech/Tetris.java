@@ -58,31 +58,46 @@ public class Tetris {
         }
     }
 
-    public boolean[] isLineComplete_sodelete(){
-        boolean checkLine[] = new boolean[24] ;
-        for (int line = 0; line<24; line++){
-            boolean filled = true;
-            for(int column=0; column<10; column++){
-                if(tetrisGrid[line][column] == 0){
-                    for(int x=0;x<line;x++){
-                        for(column=0;column<10;column++){
-                            //tetrisGrid[x][column] = tetrisGrid[x - 1][column];
-                            tetrisGrid[1][column]=0;
-                        }
-                    }
-                    filled=true;
-                }else{
-                    filled=false;
+    public void isLineComplete_sodelete() {
+        int count = 0;
+        int Flagtline=0;
+        boolean checkLine[] = new boolean[24];
+        //System.out.println("TEST");
+        for (int line = 23; line >= 0; line--) {
+            if( Flagtline == 1){
+                line++;
+                Flagtline = 0;
+            }
+            count = 0;
+            for (int column = 0; column < 10; column++) {
+
+                if (tetrisGrid[line][column] != 0) {
+                    count++;
+
                 }
             }
-            checkLine[line]=filled;
-    }
-        return checkLine;
-    }
+
+            if (count == 10) {
+
+                for (int linedeux = line; linedeux >= 0; linedeux--) {
+                    for (int column = 0; column < 10; column++) {
+                        if (linedeux != 0) {
+                            //System.out.println(linedeux);
+                            tetrisGrid[linedeux][column] = tetrisGrid[linedeux - 1][column];
+                        } else {
+                            tetrisGrid[linedeux][column] = 0;
+                        }
+                        Flagtline = 1;
+                    }
+                }
+            }
+            }
+        }
+
 
 
     //Fonction qui permet de dessiner une piece sur la grille
-    public void drawPieceOnBoard() {
+    public void drawPieceOnBoard(){
         for (int line = 0; line < piece.getShape().length; line++) {
             for (int column = 0; column < piece.getShape()[0].length; column++) {
                 if (piece.getShape()[line][column] == 1) {
@@ -153,13 +168,11 @@ public class Tetris {
             for (int j = 0; j < piece.getShape().length; j++) {
                 if (piece.getShape()[i][j] == 1) {
                     if (tetrisGrid[i+X][j+Y]!=0) {
-
                         return false;
                     }
                 }
             }
         }
-
         return true;
     }
 
@@ -167,7 +180,7 @@ public class Tetris {
     public  void fixpiece(){
         if (isinside(piece, pieceLine+1,pieceColumn+1)){
             addpieceongrid(piece,pieceLine,pieceColumn);
-            //isLineComplete_sodelete();
+            isLineComplete_sodelete();
             newrandompiece();
         }else{
             isLineComplete_sodelete();
@@ -229,7 +242,14 @@ public class Tetris {
         Game.drawPieceOnBoard();
         //fixation + création de cinquième pièce
         Game.fixpiece();
+        Game.translation(Direction.WEST);
+        Game.translation(Direction.WEST);
+        Game.translation(Direction.WEST);
+        Game.translation(Direction.WEST);
+        Game.translation(Direction.WEST);
+
         Game.drawPieceOnBoard();
+        Game.fixpiece();
 
         //Afficher la grille
         Game.printGrid();
